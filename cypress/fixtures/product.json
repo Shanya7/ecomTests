@@ -1,0 +1,13 @@
+{
+  "product":{
+    "name": "Printed Summer Dress",
+    "price": "28.98",
+    "oldPrice": "30.51",
+    "color": "Blue",
+    "size": "M",
+    "qty":"1",
+    "deliveryPrice": "2",
+    "totalPrice": "30.98"
+    
+  }
+}

@@ -1,0 +1,49 @@
+{ 
+    "address": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "company": "Test company",
+    "address1": "Test streat",
+    "address2": "200",
+    "city": "New York",
+    "postcode": "10006",
+    "state": "33",
+    "phonenumber": "+123456789",
+    "billingAddress":{
+        "firstName": "John",
+        "lastName": "Doe",
+        "company": "Company Billing",
+        "address1": "Billing streat",
+        "address2": "201",
+        "city": "New York",
+        "postcode": "10006",
+        "state": "33",
+        "phonenumber": "+123900789"
+    },
+    "updateDeliveryAddress": {
+        "firstName":"Tom",
+        "lastName": "Delivery",
+        "company": "Company (delivery) updated",
+        "address1": "Test (delivery) streat updated",
+        "address2": "500",
+        "city": "New York updated",
+        "postcode": "10008",
+        "state": "32",
+        "phonenumber": "+198765432"
+    
+    },
+    "updateBillingAddress": {
+        "firstName":"Tom",
+        "lastName": "Billing",
+        "company": "Company (bulling) updated",
+        "address1": "Test (billing) streat updated",
+        "address2": "200",
+        "city": "New York b",
+        "postcode": "10008",
+        "state": "32",
+        "phonenumber": "+198777732"
+    
+    }
+
+}
+}
