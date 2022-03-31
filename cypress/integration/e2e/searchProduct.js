@@ -1,40 +1,67 @@
 /// <reference types="cypress" />
+import Search from "../../../pageobjects/search";
+import ProductDetailsPage from "../../../pageobjects/product";
+import Login from "../../../pageobjects/login";
+import Cart from "../../../pageobjects/cart";
+import CartModule from "../../../pageobjects/cartModuleBlock";
+import Checkout from "../../../pageobjects/checkout";
+import Shipping from "../../../pageobjects/shipping";
+import Payment from "../../../pageobjects/payment";
+import Header from "../../../pageobjects/header";
+import MyAccount from "../../../pageobjects/myAccount";
+import MyAddresses from "../../../pageobjects/myAddresses";
 
 describe("Search products", () => {
+  const onSearch = new Search();
+  const onPDP = new ProductDetailsPage();
+  const onLogin = new Login();
+  const onCartPage = new Cart();
+  const onCartModule = new CartModule();
+  const onCheckout = new Checkout();
+  const onShipping = new Shipping();
+  const onPayment = new Payment();
+  const onHeader = new Header();
+  const onMyAccount = new MyAccount();
+  const onMyAddresses = new MyAddresses();
+
+  
+
   beforeEach(() => {
     cy.visit("");
   });
-  it("search product using searc field", () => {
-    cy.get("#search_query_top").click().type("dress{enter}");
-
-    cy.get(".page-heading").should("include.text", "dress");
-    cy.url().should("include", "query=dress");
-
-    cy.get(".product_list.grid.row>li")
-      .first()
-      .then(($firstElement) => {
-        const productNamePLP = $firstElement.find(".product-name").text();
-        const productPricePLP = $firstElement
-          .find("[itemprop='price']")
-          .first()
-          .text();
-        cy.log(productPricePLP);
-        //open PDP of first product
-        cy.get(".product_list.grid.row>li").first().contains("More").click();
-        //check if the description and price are the same
-        cy.get("[itemprop='name']").then(($productNamePDP) => {
-          expect($productNamePDP.text()).equal(productNamePLP.trim());
-        });
-        cy.get("#our_price_display").then(($productPricePDP) => {
-          expect($productPricePDP.text()).equal(productPricePLP.trim());
-        });
-      });
-      //change  size to M and check that it is M
-      cy.get("#group_1").select("2");
-      cy.get(".selector>span").should("contain", "M")
-      //Change color to Blue and check that it is blue
-      cy.get("#color_to_pick_list").find("[name='Blue']").click()
-      cy.get("li.selected>a").should("have.attr", "name", "Blue")
-
+  it(" should search product, change product's attributes on PDP and make order", () => {
+    onSearch.doSearch("Dress");
+    onSearch.navigateToPdpFirstItem();
+    onPDP.selectSizeM(); 
+    onPDP.selectColorBlue();
+    onPDP.clickAddToCardBtn();
+    onCartModule.verifyProductDetails();
+    onCartModule.verifyProductPrice();
+    onCartModule.clickProceedToCheckout();
+    onCartPage.verifyProductDetails();
+    onCartPage.verifyPrice();
+    onCartPage.clickProceedToCheckout();
+    onLogin.login();
+    onCheckout.addNewAddress();
+    onCheckout.uncheckAddressAreaEuals();
+    onCheckout.clickAddNewAddress();
+    onCheckout.addBillingAddress()
+    onCheckout.updateDeliveryAddress();
+    onCheckout.updateBillingAddress();
+    onCheckout.clickProceedToCheckout();
+    onShipping.verifyDeliveryPrice();
+    onShipping.verifyAgreeToTermsOfServiceNotification();
+    onShipping.clickAgreeToTermsOfService();
+    onPayment.verifyBreadCrumb();
+    onPayment.verifyProductDetails();
+    onPayment.verifyProductPrice();
+    onPayment.verifyAvailablePaymentMethods();
+    onPayment.selectPayByBankWire();
+    onPayment.confirmOrder();
+    //post-condition
+    onHeader.navigateToCustomerAccount();
+    onMyAccount.navigateToMyAddresses();
+    onMyAddresses.deleteAddress();
+    onMyAddresses.deleteAddress();
   });
 });
