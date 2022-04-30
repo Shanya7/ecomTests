@@ -2,16 +2,17 @@ import { product } from "../cypress/fixtures/product.json";
 class Payment {
   breadCrumbs = () => cy.get(".breadcrumb.clearfix>.navigation_page");
   confirmOrderBtn = () => cy.contains("button", "I confirm my order");
-
+  productName = () => cy.get(".cart_item .product-name");
   sizePicker = () => cy.get("#group_1");
   colorPicker = () => cy.get("#color_to_pick_list");
   addToCartBtn = () => cy.get("#add_to_cart");
+  oldPrice = () => cy.get(".cart_item .old-price");
 
   verifyBreadCrumb() {
     this.breadCrumbs().should("have.text", "Your payment method");
   }
   verifyProductDetails() {
-    cy.get(".cart_item .product-name").should(
+    this.productName().should(
       "include.text",
       `${product.name}`
     );
@@ -25,7 +26,7 @@ class Payment {
       "include.text",
       `${product.price}`
     );
-    cy.get(".cart_item .old-price").should(
+    this.oldPrice().should(
       "include.text",
       `${product.oldPrice}`
     );

@@ -1,20 +1,21 @@
 import {address} from "../cypress/fixtures/address.json"
 class Checkout {
   proceedToCheckoutBtn = () => cy.get("[name='processAddress']");
-  firstNameFld =()=>cy.get("#firstname");
+  firstNameFld = () => cy.get("#firstname");
   lastNameFld = () => cy.get("#lastname");
-  company = ()=> cy.get("#company");
-  address1 = () =>cy.get("#address1");
-  address2 = ()=> cy.get("#address2");
+  company = () => cy.get("#company");
+  address1 = () => cy.get("#address1");
+  address2 = () => cy.get("#address2");
   city = () => cy.get("#city");
-  postcode =() =>cy.get("#postcode");
-  state =() => cy.get("#id_state");
+  postcode = () => cy.get("#postcode");
+  state = () => cy.get("#id_state");
   phoneNumber = () => cy.get("#phone_mobile")
-  submitAddressBtn =()=>cy.get("#submitAddress");
+  submitAddressBtn = () => cy.get("#submitAddress");
+  breadcrumb = () => cy.get(".breadcrumb.clearfix>.navigation_page");
 
   clickProceedToCheckout() {
     this.proceedToCheckoutBtn().click();
-    cy.get(".breadcrumb.clearfix>.navigation_page").should(
+    this.breadcrumb().should(
       "have.text",
       "Shipping"
     );

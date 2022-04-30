@@ -11,7 +11,7 @@ class Search {
     cy.url().should("include", "query=" + value);
   }
   navigateToPdpFirstItem() {
-    cy.get(".product_list.grid.row>li")
+    this.productList()
       .first()
       .then(($firstElement) => {
         const productNamePLP = $firstElement.find(".product-name").text();
